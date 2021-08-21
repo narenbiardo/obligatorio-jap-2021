@@ -13,6 +13,7 @@
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/login.css" type="text/css">
   <style>
     html, body{
       height: 100%;
@@ -36,15 +37,24 @@
     }
   </style>
 </head>
+<body>
 
-<body class="text-center">
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 1 (Fecha de entrega: 08/08/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
-    </div>
+  <div class="box">
+    <h2>Login</h2>
+    <form action="inicio.html" method="get">
+      <div class="inputBox">
+        <input type="email" name="email" required onkeyup="this.setAttribute('value', this.value);" value="">
+        <label>Email</label>
+      </div>
+      <div class="inputBox">
+        <input type="password" name="password" required value=""
+               onkeyup="this.setAttribute('value', this.value);"
+               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+               title="Debe contener al menos un número, una mayúscula y una minúscula, deberá tener como mínimo 8 caracteres">
+        <label>Contraseña</label>
+      </div>
+      <input type="submit" name="sign-in" value="Ingresar">
+    </form>
   </div>
 
   <script src="js/init.js"></script>
