@@ -21,7 +21,7 @@
 
   <div class="box">
     <h2>Login</h2>
-    <h2>Se subió</h2>
+    <!-- Form del login -->
     <form action="inicio.html" method="get">
       <div class="inputBox">
         <input type="email" name="email" required onkeyup="this.setAttribute('value', this.value);" value="">
@@ -36,9 +36,11 @@
       </div>
       <input type="submit" name="sign-in" value="Ingresar">
     </form> <br> <br>
+    <!-- Boton de Google -->
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
   </div>
 
+  <!-- Script para que al logearse con el auth de google se redirecciona a inicio.html -->
   <script>
     function onSignIn(){
       window.location.href = "inicio.html";
