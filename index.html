@@ -47,7 +47,14 @@
       window.location.href = "inicio.html";
     }
   </script>
-  <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+  <script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
+  <script>
+    window.onLoadCallback = function(){
+      gapi.auth2.init({
+          client_id: '879351856956-khd4ekgs2bd2qae2kcnhg42891039v4c.apps.googleusercontent.com'
+        });
+    }
+  </script>
   <script src="js/init.js"></script>
   <script src="js/login.js"></script>
 </body>

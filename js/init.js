@@ -46,7 +46,7 @@ function init() {
   });
 }
 
-var auth2 = gapi.auth2.init(879351856956-khd4ekgs2bd2qae2kcnhg42891039v4c.apps.googleusercontent.com);
+var auth2 = gapi.auth2.init('879351856956-khd4ekgs2bd2qae2kcnhg42891039v4c.apps.googleusercontent.com');
 
 //Función para obtener el email del usuario de la autenticacion de google
 if (auth2.isSignedIn.get()) {
