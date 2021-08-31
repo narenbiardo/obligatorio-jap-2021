@@ -46,9 +46,9 @@
     function onSignIn(){
       const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
       const profile = googleUser.getBasicProfile();
-      localStorage.setItem("user", googleUser.getBasicProfile());
+      localStorage.setItem("user", googleUser.getBasicProfile().getName());
       console.log(localStorage.getItem("user"));
-      //window.location.href = "inicio.html";
+      window.location.href = "inicio.html";
     }
   </script>
   <script src="js/init.js"></script>
