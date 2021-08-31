@@ -40,6 +40,12 @@ var getJSONData = function(url){
     });
 }
 
+// Iniciar la api de google auth
+function init() {
+  gapi.load('auth2', function() {
+  });
+}
+
 //Función para obtener el email del usuario de la autenticacion de google
 if (auth2.isSignedIn.get()) {
   var profile = auth2.currentUser.get().getBasicProfile();
