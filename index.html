@@ -45,7 +45,7 @@
   <script>
     function onSignIn(){
       window.location.href = "inicio.html";
-      const profile = googleUser.getBasicProfile();
+      localStorage.setItem("user", googleUser.getBasicProfile());
     }
   </script>
   <script src="js/init.js"></script>

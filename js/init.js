@@ -41,10 +41,9 @@ var getJSONData = function(url){
 }
 
 //Función para obtener el email del usuario de la autenticacion de google
-var profile = auth2.currentUser.get().getBasicProfile();
 document.getElementById("userName").innerHTML = profile.getName();
 
 //Función para obtener el email del usuario del local storage
 
-document.getElementById("userName").innerHTML = localStorage.getItem("email");
+document.getElementById("userName").innerHTML = localStorage.getItem("user");
 
