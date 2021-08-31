@@ -46,6 +46,8 @@ function init() {
   });
 }
 
+gapi.auth2.init();
+
 //Función para obtener el email del usuario de la autenticacion de google
 if (auth2.isSignedIn.get()) {
   var profile = auth2.currentUser.get().getBasicProfile();
