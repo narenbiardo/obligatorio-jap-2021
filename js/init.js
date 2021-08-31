@@ -40,20 +40,11 @@ var getJSONData = function(url){
     });
 }
 
-// Iniciar la api de google auth
-function init() {
-  gapi.load('auth2', function() {
-  });
-}
-
-var auth2 = gapi.auth2.init('879351856956-khd4ekgs2bd2qae2kcnhg42891039v4c.apps.googleusercontent.com');
-
 //Función para obtener el email del usuario de la autenticacion de google
-if (auth2.isSignedIn.get()) {
-  var profile = auth2.currentUser.get().getBasicProfile();
-  document.getElementById("userName").innerHTML = profile.getName();
-}
+var profile = auth2.currentUser.get().getBasicProfile();
+document.getElementById("userName").innerHTML = profile.getName();
+
 //Función para obtener el email del usuario del local storage
-else{
-  document.getElementById("userName").innerHTML = localStorage.getItem("email");
-}
+
+document.getElementById("userName").innerHTML = localStorage.getItem("email");
+
