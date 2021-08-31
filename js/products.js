@@ -82,8 +82,6 @@ function precioFormato(precio){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-    document.getElementById("userName").innerHTML = localStorage.getItem("email");
-    console.log(localStorage.getItem("email"));
 
     fetch(PRODUCTS_URL)
     .then(respuesta => respuesta.json())
