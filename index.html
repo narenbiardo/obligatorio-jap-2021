@@ -45,17 +45,7 @@
   <script>
     function onSignIn(){
       window.location.href = "inicio.html";
-    }
-  </script>
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <meta name="google-signin-client_id" content="879351856956-khd4ekgs2bd2qae2kcnhg42891039v4c.apps.googleusercontent.com.apps.googleusercontent.com">
-  <script>
-    function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+      const profile = googleUser.getBasicProfile();
     }
   </script>
   <script src="js/init.js"></script>
