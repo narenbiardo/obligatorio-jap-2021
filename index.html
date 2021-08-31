@@ -44,6 +44,8 @@
   <!-- Script para que al logearse con el auth de google se redirecciona a inicio.html -->
   <script>
     function onSignIn(){
+      const googleUser = gapi.auth2.getAuthInstance().currentUser.get();
+      const profile = googleUser.getBasicProfile();
       localStorage.setItem("user", googleUser.getBasicProfile());
       console.log(localStorage.getItem("user"));
       //window.location.href = "inicio.html";
