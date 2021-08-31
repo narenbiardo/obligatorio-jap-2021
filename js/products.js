@@ -1,6 +1,6 @@
 const ORDER_ASC_BY_NAME = "AZ";
 const ORDER_DESC_BY_NAME = "ZA";
-const ORDER_BY_PROD_COUNT = "Cant.";
+const ORDER_BY_PROD_CANT_VENDIDOS = "Vendidos";
 var currentCategoriesArray = [];
 var currentSortCriteria = undefined;
 var minCount = undefined;
@@ -21,10 +21,10 @@ function sortCategories(criteria, array){
             if ( a.name < b.name ){ return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_BY_PROD_COUNT){
+    }else if (criteria === ORDER_BY_PROD_CANT_VENDIDOS){
         result = array.sort(function(a, b) {
-            let aCount = parseInt(a.productCount);
-            let bCount = parseInt(b.productCount);
+            let aCount = parseInt(a.soldCount);
+            let bCount = parseInt(b.soldCount);
 
             if ( aCount > bCount ){ return -1; }
             if ( aCount < bCount ){ return 1; }
@@ -39,25 +39,26 @@ function showCategoriesList(){
 
     let htmlContentToAppend = "";
     for(let i = 0; i < currentCategoriesArray.length; i++){
-        let category = currentCategoriesArray[i];
+        let product = currentCategoriesArray[i];
 
-        if (((minCount == undefined) || (minCount != undefined && parseInt(category.productCount) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(category.productCount) <= maxCount))){
+        if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
+            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){
 
             htmlContentToAppend += `
-            <a href="category-info.html" class="list-group-item list-group-item-action">
+            <a href="product-info.html" class="list-group-item list-group-item-action">
                 <div class="row">
                     <div class="col-3">
-                        <img src="` + category.imgSrc + `" alt="` + category.description + `" class="img-thumbnail">
+                        <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
                     </div>
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">`+ category.name +`</h4>
-                            <small class="text-muted"> $` + precioFormato(category.cost) + `</small>
+                            <h4 class="mb-1">`+ product.name +`</h4>
+                            <small class="text-muted"> $` + precioFormato(product.cost) + `</small>
                         </div>
-                        <p class="mb-1">` + category.description + `</p>
+                        <p class="mb-1">` + product.description + `</p>
                     </div>
                 </div>
+                <small class="mt-auto float-right"> Vendidos: ` + product.soldCount + `</small>
             </a>
             `
         }
@@ -103,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     });
 
     document.getElementById("sortByCount").addEventListener("click", function(){
-        sortAndShowCategories(ORDER_BY_PROD_COUNT);
+        sortAndShowCategories(ORDER_BY_PROD_CANT_VENDIDOS);
     });
 
     document.getElementById("clearRangeFilter").addEventListener("click", function(){
