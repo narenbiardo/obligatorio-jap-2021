@@ -44,8 +44,9 @@
   <!-- Script para que al logearse con el auth de google se redirecciona a inicio.html -->
   <script>
     function onSignIn(){
-      window.location.href = "inicio.html";
       localStorage.setItem("user", googleUser.getBasicProfile());
+      console.log(localStorage.getItem("user"));
+      //window.location.href = "inicio.html";
     }
   </script>
   <script src="js/init.js"></script>
