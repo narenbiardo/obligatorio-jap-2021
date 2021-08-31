@@ -1,64 +1,63 @@
-const ORDER_ASC_BY_NAME = "AZ";
-const ORDER_DESC_BY_NAME = "ZA";
-const ORDER_BY_PROD_CANT_VENDIDOS = "Vendidos";
-var currentCategoriesArray = [];
-var currentSortCriteria = undefined;
+var productos = [];
+var arrayProductosActuales = [];
 var minCount = undefined;
 var maxCount = undefined;
 
-function sortCategories(criteria, array){
-    let result = [];
-    if (criteria === ORDER_ASC_BY_NAME)
-    {
-        result = array.sort(function(a, b) {
-            if ( a.name < b.name ){ return -1; }
-            if ( a.name > b.name ){ return 1; }
-            return 0;
-        });
-    }else if (criteria === ORDER_DESC_BY_NAME){
-        result = array.sort(function(a, b) {
-            if ( a.name > b.name ){ return -1; }
-            if ( a.name < b.name ){ return 1; }
-            return 0;
-        });
-    }else if (criteria === ORDER_BY_PROD_CANT_VENDIDOS){
-        result = array.sort(function(a, b) {
-            let aCount = parseInt(a.soldCount);
-            let bCount = parseInt(b.soldCount);
+function ordenarProductos(criterio, arrayProductosActuales){
+    let retorno = [];
+    switch (criterio) {
+        case "PrecioAc":
+            retorno = arrayProductosActuales.sort(function(a, b) {
+                if ( a.cost < b.cost ){ return -1; }
+                if ( a.cost > b.cost ){ return 1; }
+                return 0;
+            });
+        break;
+        case "PrecioDc":
+            retorno = arrayProductosActuales.sort(function(a, b) {
+                if ( a.cost > b.cost ){ return -1; }
+                if ( a.cost < b.cost ){ return 1; }
+                return 0;
+            });
+        break;
+        default: //Relevancia
+            retorno = arrayProductosActuales.sort(function(a, b) {
+                let aCount = parseInt(a.soldCount);
+                let bCount = parseInt(b.soldCount);
 
-            if ( aCount > bCount ){ return -1; }
-            if ( aCount < bCount ){ return 1; }
-            return 0;
-        });
+                if ( aCount > bCount ){ return -1; }
+                if ( aCount < bCount ){ return 1; }
+                return 0;
+            });
+        break;
     }
-
-    return result;
+    return retorno;
 }
 
-function showCategoriesList(){
+function imprimirProductos(){
 
     let htmlContentToAppend = "";
-    for(let i = 0; i < currentCategoriesArray.length; i++){
-        let product = currentCategoriesArray[i];
+    for(let i = 0; i < arrayProductosActuales.length; i++){
+        let producto = arrayProductosActuales[i];
 
-        if (((minCount == undefined) || (minCount != undefined && parseInt(product.cost) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.cost) <= maxCount))){
+        if (((minCount == undefined) || (minCount != undefined && parseInt(producto.cost) >= minCount)) &&
+            ((maxCount == undefined) || (maxCount != undefined && parseInt(producto.cost) <= maxCount))){
 
             htmlContentToAppend += `
             <a href="product-info.html" class="list-group-item list-group-item-action">
                 <div class="row">
                     <div class="col-3">
-                        <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
+                        <img src="` + producto.imgSrc + `" alt="` + producto.description + `" class="img-thumbnail">
                     </div>
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">`+ product.name +`</h4>
-                            <small class="text-muted"> $` + precioFormato(product.cost) + `</small>
+                            <h4 class="mb-1">`+ producto.name +`</h4>
+                            <small class="text-muted"> $` + precioFormato(producto.cost) + `</small>
                         </div>
-                        <p class="mb-1">` + product.description + `</p>
+                        <p class="mb-1">` + producto.description + `</p>
                     </div>
                 </div>
-                <small class="mt-auto float-right"> Vendidos: ` + product.soldCount + `</small>
+                <small class="mt-auto float-right"> Vendidos: ` + producto.soldCount + `</small>
             </a>
             `
         }
@@ -67,17 +66,11 @@ function showCategoriesList(){
     }
 }
 
-function sortAndShowCategories(sortCriteria, categoriesArray){
-    currentSortCriteria = sortCriteria;
-
-    if(categoriesArray != undefined){
-        currentCategoriesArray = categoriesArray;
-    }
-
-    currentCategoriesArray = sortCategories(currentSortCriteria, currentCategoriesArray);
-
-    //Muestro las categorías ordenadas
-    showCategoriesList();
+function ordenarProductosEImprimir(criterio){
+    arrayProductosActuales = productos;
+    arrayProductosActuales = ordenarProductos(criterio, arrayProductosActuales);
+    //Muestro los productos ordenados
+    imprimirProductos();
 }
 
 //Formato de tres cifras para el precio
@@ -89,22 +82,27 @@ function precioFormato(precio){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-    getJSONData(PRODUCTS_URL).then(function(resultObj){
-        if (resultObj.status === "ok"){
-            sortAndShowCategories(ORDER_ASC_BY_NAME, resultObj.data);
-        }
+    document.getElementById("userName").innerHTML = localStorage.getItem("email");
+    console.log(localStorage.getItem("email"));
+
+    fetch(PRODUCTS_URL)
+    .then(respuesta => respuesta.json())
+    .then(elemento => {
+        productos = elemento;
+        console.log(elemento);
+        ordenarProductosEImprimir("PrecioAc");
+    })
+
+    document.getElementById("PrecioAc").addEventListener("click", function(){
+        ordenarProductosEImprimir("PrecioAc");
     });
 
-    document.getElementById("sortAsc").addEventListener("click", function(){
-        sortAndShowCategories(ORDER_ASC_BY_NAME);
+    document.getElementById("PrecioDc").addEventListener("click", function(){
+        ordenarProductosEImprimir("PrecioDc");
     });
 
-    document.getElementById("sortDesc").addEventListener("click", function(){
-        sortAndShowCategories(ORDER_DESC_BY_NAME);
-    });
-
-    document.getElementById("sortByCount").addEventListener("click", function(){
-        sortAndShowCategories(ORDER_BY_PROD_CANT_VENDIDOS);
+    document.getElementById("Relevancia").addEventListener("click", function(){
+        ordenarProductosEImprimir("Relevancia");
     });
 
     document.getElementById("clearRangeFilter").addEventListener("click", function(){
@@ -114,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         minCount = undefined;
         maxCount = undefined;
 
-        showCategoriesList();
+        imprimirProductos();
     });
 
     document.getElementById("rangeFilterCount").addEventListener("click", function(){
@@ -137,6 +135,6 @@ document.addEventListener("DOMContentLoaded", function(e){
             maxCount = undefined;
         }
 
-        showCategoriesList();
+        imprimirProductos();
     });
 });
