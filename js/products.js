@@ -6,27 +6,32 @@ var maxCount = undefined;
 function ordenarProductos(criterio, arrayProductosActuales){
     let retorno = [];
     switch (criterio) {
+        //Se le da al sort el array de productos actuales y se evalua de a dos elementos segun las condiciones que evaluemos debajo
         case "PrecioAc":
             retorno = arrayProductosActuales.sort(function(a, b) {
-                if ( a.cost < b.cost ){ return -1; }
-                if ( a.cost > b.cost ){ return 1; }
+                let aint = parseInt(a.cost);
+                let bint = parseInt(b.cost);
+                if ( aint < bint ){ return -1; }
+                if ( aint > bint ){ return 1; }
                 return 0;
             });
         break;
         case "PrecioDc":
             retorno = arrayProductosActuales.sort(function(a, b) {
-                if ( a.cost > b.cost ){ return -1; }
-                if ( a.cost < b.cost ){ return 1; }
+                let aint = parseInt(a.cost);
+                let bint = parseInt(b.cost);
+                if ( aint > bint ){ return -1; }
+                if ( aint < bint ){ return 1; }
                 return 0;
             });
         break;
         default: //Relevancia
             retorno = arrayProductosActuales.sort(function(a, b) {
-                let aCount = parseInt(a.soldCount);
-                let bCount = parseInt(b.soldCount);
+                let aint = parseInt(a.soldCount);
+                let bint = parseInt(b.soldCount);
 
-                if ( aCount > bCount ){ return -1; }
-                if ( aCount < bCount ){ return 1; }
+                if ( aint > bint ){ return -1; }
+                if ( aint < bint ){ return 1; }
                 return 0;
             });
         break;
@@ -40,6 +45,7 @@ function imprimirProductos(){
     for(let i = 0; i < arrayProductosActuales.length; i++){
         let producto = arrayProductosActuales[i];
 
+        // Se imprimen todos los productos del array actual menos los que no cumplen con el precio min/max
         if (((minCount == undefined) || (minCount != undefined && parseInt(producto.cost) >= minCount)) &&
             ((maxCount == undefined) || (maxCount != undefined && parseInt(producto.cost) <= maxCount))){
 
@@ -67,10 +73,9 @@ function imprimirProductos(){
 }
 
 function ordenarProductosEImprimir(criterio){
-    arrayProductosActuales = productos;
-    arrayProductosActuales = ordenarProductos(criterio, arrayProductosActuales);
-    //Muestro los productos ordenados
-    imprimirProductos();
+    arrayProductosActuales = productos; //No modifico nunca el array original, asi no tengo que volver a hacer un fetch
+    arrayProductosActuales = ordenarProductos(criterio, arrayProductosActuales);    //Filtro los productos y los guardo en el nuevo array
+    imprimirProductos();    //Muestro los productos ordenados
 }
 
 //Formato de tres cifras para el precio
@@ -78,19 +83,17 @@ function precioFormato(precio){
     return precio.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 }
 
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
+//Función que se ejecuta cuando el DOM está cargado
 document.addEventListener("DOMContentLoaded", function(e){
 
     fetch(PRODUCTS_URL)
     .then(respuesta => respuesta.json())
     .then(elemento => {
         productos = elemento;
-        console.log(elemento);
+        //Por defecto se ordenan por Precio ascendente
         ordenarProductosEImprimir("PrecioAc");
     })
-
+    //Cuando se apreta el boton de PrecioAc se manda a ordenas los Productos
     document.getElementById("PrecioAc").addEventListener("click", function(){
         ordenarProductosEImprimir("PrecioAc");
     });
@@ -102,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     document.getElementById("Relevancia").addEventListener("click", function(){
         ordenarProductosEImprimir("Relevancia");
     });
-
+    //Para borrar los campos de rango de precio
     document.getElementById("clearRangeFilter").addEventListener("click", function(){
         document.getElementById("rangeFilterCountMin").value = "";
         document.getElementById("rangeFilterCountMax").value = "";
@@ -119,6 +122,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         minCount = document.getElementById("rangeFilterCountMin").value;
         maxCount = document.getElementById("rangeFilterCountMax").value;
 
+        //Importante que el valor no sea indefinido, vacio o menor o igual a 0
         if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0){
             minCount = parseInt(minCount);
         }
