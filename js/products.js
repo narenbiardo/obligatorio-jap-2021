@@ -42,6 +42,7 @@ function ordenarProductos(criterio, arrayProductosActuales){
 function imprimirProductos(){
 
     let htmlContentToAppend = "";
+    prodCount = 0;
     for(let i = 0; i < arrayProductosActuales.length; i++){
         let producto = arrayProductosActuales[i];
 
@@ -49,28 +50,65 @@ function imprimirProductos(){
         if (((minCount == undefined) || (minCount != undefined && parseInt(producto.cost) >= minCount)) &&
             ((maxCount == undefined) || (maxCount != undefined && parseInt(producto.cost) <= maxCount))){
 
+            console.log(prodCount);
+            if(prodCount == 0){
+                htmlContentToAppend += `<div class="card-deck">`
+                console.log("Imprimo card-deck");
+            }
+
             htmlContentToAppend += `
-            <a href="product-info.html" class="list-group-item list-group-item-action">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="` + producto.imgSrc + `" alt="` + producto.description + `" class="img-thumbnail">
-                    </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h4 class="mb-1">`+ producto.name +`</h4>
-                            <small class="text-muted"> $` + precioFormato(producto.cost) + `</small>
-                        </div>
-                        <p class="mb-1">` + producto.description + `</p>
-                    </div>
+
+            <div class="card" style="width: 18rem;">
+                <img src="` + producto.imgSrc + `" class="card-img-top" alt="...">
+                <div class="card-body">
+                <p class="card-text float-right font-weight-bold text-success">$` + Intl.NumberFormat("de-DE").format(producto.cost) + `</p>
+                <h5 class="card-title text-primary font-weight-bolder">`+ producto.name +`</h5>
+                <p class="card-text text-secondary">` + producto.description + `</p>
+                <p class="card-text float-left"><small class="text-muted">Vendidos: ` + producto.soldCount + `</small></p>
+                <a href="product-info.html" class="stretched-link"></a>
                 </div>
-                <small class="mt-auto float-right"> Vendidos: ` + producto.soldCount + `</small>
-            </a>
+            </div>
             `
+
+            if(prodCount == 3){
+                htmlContentToAppend += `</div><br>`
+                prodCount = 0;
+                console.log("imprimo div");
+            }else{
+                prodCount++;
+            }
+            console.log(prodCount);
         }
 
         document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
     }
 }
+
+/*             <a href="product-info.html" class="list-group-item list-group-item-action">
+            <div class="row">
+                <div class="card mb-3" style="max-width: 740px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                        <img src="` + producto.imgSrc + `" class="card-img" alt="` + producto.description + `">
+                        </div>
+                        <div class="col-md-8">
+                        <div class="card-body">
+                        <p class="card-text float-right"><small class="text-muted">$` + precioFormato(producto.cost) + `</small></p>
+                            <h5 class="card-title">`+ producto.name +`</h5>
+                            <p class="card-text">` + producto.description + `</p>
+                            <p class="card-text float-right"><small class="text-muted">Vendidos: ` + producto.soldCount + `</small></p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </a>
+
+            asi se le pone texto dentro de la imagen:
+                            <div class="card-img-overlay">
+                    <p class="card-text float-right font-weight-bold">$` + precioFormato(producto.cost) + `</p>
+                </div>
+*/
 
 function ordenarProductosEImprimir(criterio){
     arrayProductosActuales = productos; //No modifico nunca el array original, asi no tengo que volver a hacer un fetch
@@ -78,10 +116,11 @@ function ordenarProductosEImprimir(criterio){
     imprimirProductos();    //Muestro los productos ordenados
 }
 
-//Formato de tres cifras para el precio
+/*Formato de tres cifras para el precio (Ya no se usa)
 function precioFormato(precio){
     return precio.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 }
+*/
 
 //Función que se ejecuta cuando el DOM está cargado
 document.addEventListener("DOMContentLoaded", function(e){

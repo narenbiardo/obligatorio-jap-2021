@@ -13,48 +13,123 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <!-- Back to top button font -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
+  <!-- Product Info -->
+  <link href="css/productInfo.css" rel="stylesheet">
 </head>
 
 <body>
-  <nav class="site-header sticky-top py-1 bg-dark">
-    <div class="container d-flex flex-column flex-md-row justify-content-between">
-      <a class="py-2 d-none d-md-inline-block" href="inicio.html">Inicio</a>
-      <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
-      <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
-      <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
-      <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
-      <small id="userName" class="py-2 d-none d-md-inline-block"></small>
+
+  <!-- Back to top button -->
+  <a id="button"></a>
+
+  <!-- Nav -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="inicio.html">
+        <img src="img/Poké_Ball_icon.svg.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="inicio.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="categories.html">Categorías</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="products.html" style="color: red;">Productos<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="sell.html">Vender</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="cart.html">Mi carrito</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a id="userName" class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+            </a>
+            <div class="dropdown-menu bg-dark">
+              <a class="dropdown-item bg-dark" href="my-profile.html" style="color: white;">Perfil</a>
+              <a class="dropdown-item bg-dark" href="index.html" style="color: white;">Salir</a>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 3 (Fecha de entrega: 19/09/2021) y Entrega 4 (Fecha de entrega: 03/10/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+
+  <!-- Producto -->
+  <div class="wrapper container">
+    <div class="product-single">
+        <div class="product-gallery">
+            <div class="slider-arrows"><i class="fa fa-fw fa-arrow-circle-o-left" id="prev-slide"></i><i class="fa fa-fw fa-arrow-circle-o-right" id="next-slide"></i></div>
+            <div id="slider-wrap">
+                <!-- Aquí se colocan las imágenes -->
+                <ul id="imagenes" class="slides">
+                </ul>
+                <!-- Debe de haber un li por cada imágen, "circulitos" de debajo. El primero debe de tener la clase "active" -->
+                <ul id="dots" class="nav-dots">
+                </ul>
+            </div>
+        </div>
+        <div class="product-details">
+            <h1 id="productTitle" class="product-title"></h1>
+            <h3 id="cost" class="product-cost">$</h3>
+            <div class="product-rating">
+                <ul>
+                    <li class="fa fa-fw fa-lg fa-star"></li>
+                    <li class="fa fa-fw fa-lg fa-star"></li>
+                    <li class="fa fa-fw fa-lg fa-star"></li>
+                    <li class="fa fa-fw fa-lg fa-star"></li>
+                    <li class="fa fa-fw fa-lg fa-star-half"></li>
+                </ul><span class="product-reviews"><a href="#">10 Reviews</a></span>
+            </div>
+            <div class="product-description">
+                <p id="description"></p>
+            </div>
+            <div class="product-cta"><button class="product-atc">Añadir al Carrito</button><button class="product-atw">Añadir a Deseados</button></div>
+            <div class="product-info"><span id="productInfo" class="product-sku"></span></div>
+        </div>
     </div>
   </div>
-  <footer class="text-muted">
-    <div class="container">
-      <p class="float-right">
-        <a href="#">Volver arriba</a>
-      </p>
-      <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
-      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+
+  <!-- Comentarios -->
+  <div class="cajaComentarios container">
+    <div id="comentarios">
     </div>
-  </footer>
-  <div id="spinner-wrapper">
-    <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+
+    <div class="form-floating" id="texto">
+        <div class="stars">
+          <form action="">
+            <input class="star star-5" id="star-5" type="radio" name="star" onclick="conseguirValorEstrella(5)"/>
+            <label class="star star-5" for="star-5"></label>
+            <input class="star star-4" id="star-4" type="radio" name="star" onclick="conseguirValorEstrella(4)"/>
+            <label class="star star-4" for="star-4"></label>
+            <input class="star star-3" id="star-3" type="radio" name="star" onclick="conseguirValorEstrella(3)"/>
+            <label class="star star-3" for="star-3"></label>
+            <input class="star star-2" id="star-2" type="radio" name="star" onclick="conseguirValorEstrella(2)"/>
+            <label class="star star-2" for="star-2"></label>
+            <input class="star star-1" id="star-1" type="radio" name="star" onclick="conseguirValorEstrella(1)" checked/>
+            <label class="star star-1" for="star-1"></label>
+          </form>
+        </div>
+        <textarea class="form-control" placeholder="Comentar" id="floatingTextarea" rows="4"></textarea>
+        <label for="floatingTextarea"></label>
     </div>
+    <button id="enviar">Enviar</button>
   </div>
+
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/product-info.js"></script>
+  <script src="js/productInfoEsqueleto.js"></script>
 </body>
 
 </html>
