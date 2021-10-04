@@ -48,15 +48,13 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="cart.html">Mi carrito</a>
-          </li>
           <li class="nav-item dropdown">
             <a id="userName" class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
             </a>
             <div class="dropdown-menu bg-dark">
-              <a class="dropdown-item bg-dark" href="my-profile.html" style="color: white;">Perfil</a>
-              <a class="dropdown-item bg-dark" href="index.html" style="color: white;">Salir</a>
+              <a class="dropdown-item bg-dark" href="cart.html" style="color: white;">Ver mi carrito</a>
+              <a class="dropdown-item bg-dark" href="my-profile.html" style="color: white;">Mi perfil</a>
+              <a class="dropdown-item bg-dark" href="index.html" style="color: white;">Cerrar sesión</a>
             </div>
           </li>
         </ul>
@@ -82,13 +80,13 @@
             <h1 id="productTitle" class="product-title"></h1>
             <h3 id="cost" class="product-cost">$</h3>
             <div class="product-rating">
-                <ul>
+                <ul id="estrellasProducto">
                     <li class="fa fa-fw fa-lg fa-star"></li>
                     <li class="fa fa-fw fa-lg fa-star"></li>
                     <li class="fa fa-fw fa-lg fa-star"></li>
                     <li class="fa fa-fw fa-lg fa-star"></li>
                     <li class="fa fa-fw fa-lg fa-star-half"></li>
-                </ul><span class="product-reviews"><a href="#">10 Reviews</a></span>
+                </ul><span class="product-reviews"><a href="#comentarios" id="reviews"></a></span>
             </div>
             <div class="product-description">
                 <p id="description"></p>
@@ -96,6 +94,15 @@
             <div class="product-cta"><button class="product-atc">Añadir al Carrito</button><button class="product-atw">Añadir a Deseados</button></div>
             <div class="product-info"><span id="productInfo" class="product-sku"></span></div>
         </div>
+    </div>
+  </div>
+
+  <!-- Productos relacionados -->
+  <p class="text-center">Productos relacionados:</p>
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div id="cat-list-container">
+      </div>
     </div>
   </div>
 
