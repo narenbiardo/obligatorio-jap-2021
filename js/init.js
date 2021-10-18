@@ -49,6 +49,10 @@ document.getElementById("userName").innerHTML = localStorage.getItem("user");
 
 document.getElementById("userName").innerHTML = localStorage.getItem("user");
 
+function cerrarSesion(){
+  localStorage.removeItem("user");
+}
+
 //Back to top button
 var btn = $('#button');
 
