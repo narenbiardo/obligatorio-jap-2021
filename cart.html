@@ -38,7 +38,7 @@
 </head>
 
 <body>
-  
+
   <!-- Back to top button -->
   <a id="button"></a>
 
@@ -48,7 +48,8 @@
       <a class="navbar-brand" href="inicio.html">
         <img src="img/Poké_Ball_icon.svg.png" width="30" height="30" class="d-inline-block align-top" alt="">
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -66,10 +67,12 @@
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item dropdown">
-            <a id="userName" class="nav-link dropdown-toggle active" href="#" id="navbardrop" data-toggle="dropdown" style="color: red;"><span class="sr-only">(current)</span>>
+            <a id="userName" class="nav-link dropdown-toggle active" href="#" id="navbardrop" data-toggle="dropdown"
+              style="color: red;"><span class="sr-only">(current)</span>>
             </a>
             <div class="dropdown-menu bg-dark">
-              <a class="dropdown-item bg-dark active" href="cart.html" style="color: red;">Ver mi carrito<span class="sr-only">(current)</span></a>
+              <a class="dropdown-item bg-dark active" href="cart.html" style="color: red;">Ver mi carrito<span
+                  class="sr-only">(current)</span></a>
               <a class="dropdown-item bg-dark" href="my-profile.html" style="color: white;">Mi perfil</a>
               <a class="dropdown-item bg-dark" href="index.html" style="color: white;">Cerrar sesión</a>
             </div>
@@ -79,27 +82,66 @@
     </div>
   </nav>
 
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 5 (Fecha de entrega: 17/10/2021) y Entrega 7 (Fecha de entrega: 14/11/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody id="carrito">
+
+
+      </tbody>
+    </table>
+    <hr>
+    <button type="button" class="btn btn-secondary" onclick="transformarMoneda('UYU')">UYU</button>
+    <button type="button" class="btn btn-secondary" onclick="transformarMoneda('USD')">USD</button>
+    <h5>Método de envío</h5>
+    <p>Dirección</p>
+    <input type="text" class="form-control" placeholder="Ej: 18 de Julio 2233" aria-label="Direccion"
+      aria-describedby="basic-addon1">
+    <p>País</p>
+    <input type="text" class="form-control" placeholder="Ej: Uruguay" aria-label="Pais" aria-describedby="basic-addon1">
+    <p>Tipo de envío</p>
+    <div class="custom-control custom-radio custom-control-inline">
+      <input type="radio" id="envio1" name="envio" class="custom-control-input">
+      <label class="custom-control-label" for="envio1">Premium (2-5 días) - Costo del 15% sobre el subtotal</label>
     </div>
-  </div>
-  <div id="spinner-wrapper">
-    <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+    <br>
+    <div class="custom-control custom-radio custom-control-inline">
+      <input type="radio" id="envio2" name="envio" class="custom-control-input">
+      <label class="custom-control-label" for="envio2">Express (5-8 días) - Costo del 7% sobre el subtotal</label>
     </div>
-  </div>
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/dropzone.js"></script>
-  <script src="js/init.js"></script>
-  <script src="js/cart.js"></script>
+    <br>
+    <div class="custom-control custom-radio custom-control-inline">
+      <input type="radio" id="envio3" name="envio" class="custom-control-input">
+      <label class="custom-control-label" for="envio3">Express (12-15 días) - Costo del 5% sobre el subtotal</label>
+    </div>
+    <p>Forma de pago</p>
+    <div class="custom-control custom-radio custom-control-inline">
+      <input type="radio" id="pago1" name="pago" class="custom-control-input">
+      <label class="custom-control-label" for="pago1">Tarjeta de crédito</label>
+    </div>
+    <br>
+    <div class="custom-control custom-radio custom-control-inline">
+      <input type="radio" id="pago2" name="pago" class="custom-control-input">
+      <label class="custom-control-label" for="pago2">Transferencia bancaria</label>
+    </div>
+    <hr>
+    <p id="cantProductos">Cantidad de productos: </p>
+    <h4 id="total">Total: </h4>
+    <button type="button" class="btn btn-danger">Comprar</button>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/dropzone.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/cart.js"></script>
 </body>
 
 </html>

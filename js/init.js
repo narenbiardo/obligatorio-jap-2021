@@ -6,6 +6,7 @@ const PRODUCTS_URL = "https://api.npoint.io/3aa1a3cf8cb70f325181"
 const PRODUCT_INFO_URL = "https://japdevdep.github.io/ecommerce-api/product/5678.json";
 const PRODUCT_INFO_COMMENTS_URL = "https://japdevdep.github.io/ecommerce-api/product/5678-comments.json";
 const CART_INFO_URL = "https://japdevdep.github.io/ecommerce-api/cart/987.json";
+const LINK_CARRITO_DOS_PRODUCTOS = " https://japdevdep.github.io/ecommerce-api/cart/654.json";
 const CART_BUY_URL = "https://japdevdep.github.io/ecommerce-api/cart/buy.json";
 
 var showSpinner = function(){
