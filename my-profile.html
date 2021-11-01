@@ -41,13 +41,14 @@
   <!-- Back to top button -->
   <a id="button"></a>
 
-    <!-- Nav -->
+  <!-- Nav -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
       <a class="navbar-brand" href="inicio.html">
         <img src="img/Poké_Ball_icon.svg.png" width="30" height="30" class="d-inline-block align-top" alt="">
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -65,12 +66,15 @@
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item dropdown">
-            <a id="userName" class="nav-link dropdown-toggle active" href="#" id="navbardrop" data-toggle="dropdown" style="color: red;"><span class="sr-only">(current)</span>
+            <a id="userName" class="nav-link dropdown-toggle active" href="#" id="navbardrop" data-toggle="dropdown"
+              style="color: red;"><span class="sr-only">(current)</span>
             </a>
             <div class="dropdown-menu bg-dark">
               <a class="dropdown-item bg-dark" href="cart.html" style="color: white;">Ver mi carrito</a>
-              <a class="dropdown-item bg-dark active" href="my-profile.html" style="color: red;">Mi perfil<span class="sr-only">(current)</span></a>
-              <a class="dropdown-item bg-dark" href="index.html" style="color: white;" onclick="cerrarSesion()">Cerrar sesión</a>
+              <a class="dropdown-item bg-dark active" href="my-profile.html" style="color: red;">Mi perfil<span
+                  class="sr-only">(current)</span></a>
+              <a class="dropdown-item bg-dark" href="index.html" style="color: white;" onclick="cerrarSesion()">Cerrar
+                sesión</a>
             </div>
           </li>
         </ul>
@@ -78,14 +82,41 @@
     </div>
   </nav>
 
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 6 (Fecha de entrega: 31/10/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
-    </div>
+  <!-- Form -->
+  <div class="container">
+    <form>
+      <div class="form-group row">
+        <label for="inputNombre" class="col-sm-2 col-form-label">Nombre completo</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" id="inputNombre" placeholder="Juan Santiago Rodriguez Gonzalez">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputEdad" class="col-sm-2 col-form-label">Edad</label>
+        <div class="col-sm-1">
+          <input type="number" class="form-control" id="inputEdad" placeholder="18">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputEmail" class="col-sm-2 col-form-label">juan@gmail.com</label>
+        <div class="col-sm-5">
+          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputEdad" class="col-sm-2 col-form-label">Teléfono</label>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="inputTelefono" placeholder="091234567">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button type="submit" class="btn btn-primary" onclick="saveData()">Enviar</button>
+        </div>
+      </div>
+    </form>
   </div>
+
   <footer class="text-muted bg-light">
     <div class="container">
       <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
