@@ -53,7 +53,6 @@ function imprimirProductos(){
             console.log(prodCount);
             if(prodCount == 0){
                 htmlContentToAppend += `<div class="card-deck">`
-                console.log("Imprimo card-deck");
             }
 
             htmlContentToAppend += `
@@ -73,11 +72,9 @@ function imprimirProductos(){
             if(prodCount == 3){
                 htmlContentToAppend += `</div><br>`
                 prodCount = 0;
-                console.log("imprimo div");
             }else{
                 prodCount++;
             }
-            console.log(prodCount);
         }
 
         document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;

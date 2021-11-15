@@ -27,6 +27,30 @@
         font-size: 3.5rem;
       }
     }
+
+    .modal {
+      text-align: center;
+      padding: 0 !important;
+      background-color: rgba(0, 0, 0, 0.25);
+    }
+
+    .modal:before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      margin-right: -4px;
+    }
+
+    .modal-dialog {
+      display: inline-block;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .modalAgradecimiento .modal-content {
+      background-color: #DB3544;
+    }
   </style>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
@@ -74,13 +98,77 @@
               <a class="dropdown-item bg-dark active" href="cart.html" style="color: red;">Ver mi carrito<span
                   class="sr-only">(current)</span></a>
               <a class="dropdown-item bg-dark" href="my-profile.html" style="color: white;">Mi perfil</a>
-              <a class="dropdown-item bg-dark" href="index.html" style="color: white;" onclick="cerrarSesion()">Cerrar sesión</a>
+              <a class="dropdown-item bg-dark" href="index.html" style="color: white;" onclick="cerrarSesion()">Cerrar
+                sesión</a>
             </div>
           </li>
         </ul>
       </div>
     </div>
   </nav>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Seleccionar forma de pago</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="pago1" name="pago" class="custom-control-input" onclick="esconderCampos(1)" checked>
+            <label class="custom-control-label" for="pago1">Tarjeta de crédito</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <div class="col-sm-6">
+              <input type="text" class="form-control" placeholder="Número de tarjeta" aria-label="NúmeroTarjetaCredito"
+                id="numTarjetaCredito">
+            </div>
+            <div class="col-sm-3">
+              <input type="text" class="form-control" placeholder="CVC" aria-label="CVC" id="cvc">
+            </div>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <div class="col-sm-12">
+              <input type="date" class="form-control" placeholder="Fecha de caducidad" aria-label="FechaCaducidad"
+                id="fechaCaducidad">
+            </div>
+          </div>
+          <br>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="pago2" name="pago" class="custom-control-input" onclick="esconderCampos(2)">
+            <label class="custom-control-label" for="pago2">Transferencia bancaria</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="Número de cuenta" aria-label="NúmeroTarjetaCredito"
+                id="numcuenta" disabled>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Aplicar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal agradecimiento -->
+  <div class="modal fade modalAgradecimiento" id="modalAgradecimiento" tabindex="-1" role="dialog"
+    aria-labelledby="modalAgradecimiento" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h5 style="color: white;">¡Tu compra ha sido efectuada!</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <div class="container">
     <table class="table">
@@ -102,46 +190,66 @@
     <button type="button" class="btn btn-secondary" onclick="transformarMoneda('UYU')">UYU</button>
     <button type="button" class="btn btn-secondary" onclick="transformarMoneda('USD')">USD</button>
     <h5>Método de envío</h5>
-    <p>Dirección</p>
-    <input type="text" class="form-control" placeholder="Ej: 18 de Julio 2233" aria-label="Direccion"
+    <p id="labelDireccion">Dirección</p>
+    <input id="inputDireccion" type="text" class="form-control" placeholder="Ej: 18 de Julio 2233"
+      aria-label="Direccion" aria-describedby="basic-addon1">
+    <p id="labelPais">País</p>
+    <input id="inputPais" type="text" class="form-control" placeholder="Ej: Uruguay" aria-label="Pais"
       aria-describedby="basic-addon1">
-    <p>País</p>
-    <input type="text" class="form-control" placeholder="Ej: Uruguay" aria-label="Pais" aria-describedby="basic-addon1">
-    <p>Tipo de envío</p>
+    <p id="labelTipoEnvio">Tipo de envío</p>
     <div class="custom-control custom-radio custom-control-inline">
-      <input type="radio" id="envio1" name="envio" class="custom-control-input">
+      <input type="radio" id="envio1" name="envio" class="custom-control-input" onclick="porcentajeEnvio(15)">
       <label class="custom-control-label" for="envio1">Premium (2-5 días) - Costo del 15% sobre el subtotal</label>
     </div>
     <br>
     <div class="custom-control custom-radio custom-control-inline">
-      <input type="radio" id="envio2" name="envio" class="custom-control-input">
+      <input type="radio" id="envio2" name="envio" class="custom-control-input" onclick="porcentajeEnvio(7)">
       <label class="custom-control-label" for="envio2">Express (5-8 días) - Costo del 7% sobre el subtotal</label>
     </div>
     <br>
     <div class="custom-control custom-radio custom-control-inline">
-      <input type="radio" id="envio3" name="envio" class="custom-control-input">
+      <input type="radio" id="envio3" name="envio" class="custom-control-input" onclick="porcentajeEnvio(5)">
       <label class="custom-control-label" for="envio3">Express (12-15 días) - Costo del 5% sobre el subtotal</label>
     </div>
-    <p>Forma de pago</p>
-    <div class="custom-control custom-radio custom-control-inline">
-      <input type="radio" id="pago1" name="pago" class="custom-control-input">
-      <label class="custom-control-label" for="pago1">Tarjeta de crédito</label>
-    </div>
-    <br>
-    <div class="custom-control custom-radio custom-control-inline">
-      <input type="radio" id="pago2" name="pago" class="custom-control-input">
-      <label class="custom-control-label" for="pago2">Transferencia bancaria</label>
-    </div>
+    <p id="labelFormaPago">Forma de pago</p>
+    <!-- Button del modal -->
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"
+      style="color: #DB3544; background-color: white; border-color: #DB3544;">
+      Seleccionar
+    </button>
     <hr>
-    <p id="cantProductos">Cantidad de productos: </p>
-    <h4 id="total">Total: </h4>
-    <button type="button" class="btn btn-danger">Comprar</button>
+    <div class="row justify-content-center">
+      <div class="p-2 mb-5 w-40 rounded bg-danger text-white">
+        <h4 class="text-center">Costo</h4>
+        <table class="table table-borderless" style="color: white">
+          <thead>
+            <tr>
+              <th scope="col">Precio</th>
+              <th id="total" scope="col" style="font-weight: bold;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Porcentaje</th>
+              <td id="pEnvio" style="font-weight: bold;"></td>
+            </tr>
+            <tr>
+              <th scope="row">Total</th>
+              <td id="totalFinal" style="font-weight: bold;"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <button type="button" class="btn btn-danger" onclick="validar()">Comprar</button>
+    </div>
+  </div>
 
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/dropzone.js"></script>
-    <script src="js/init.js"></script>
-    <script src="js/cart.js"></script>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/dropzone.js"></script>
+  <script src="js/init.js"></script>
+  <script src="js/cart.js"></script>
 </body>
-
 </html>
